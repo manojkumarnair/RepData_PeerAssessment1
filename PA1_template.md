@@ -191,7 +191,7 @@
 
 
 ```r
-     xyplot(steps ~ interval | dayIndicator,dayPatterns, main="Average Steps per Day",type = "l",  xlab = "Interval", ylab = "Number of steps",layout = c(1, 2) )
+     xyplot(steps ~ interval | dayIndicator,dayPatterns, layout = c(1, 2),type = "l",main="Average Steps per Day", xlab = "Interval", ylab = "Number of steps", )
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 

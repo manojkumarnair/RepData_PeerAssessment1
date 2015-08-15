@@ -161,6 +161,6 @@ output:
 
 ```{r echo= TRUE}
     
-     xyplot(steps ~ interval | dayIndicator,dayPatterns, main="Average Steps per Day",type = "l",  xlab = "Interval", ylab = "Number of steps",layout = c(1, 2) )
+     xyplot(steps ~ interval | dayIndicator,dayPatterns, layout = c(1, 2),type = "l",main="Average Steps by 5 minute Interval for Weekends and WeekdaysA", xlab = "Interval", ylab = "Number of steps", )
 
 ``` 
