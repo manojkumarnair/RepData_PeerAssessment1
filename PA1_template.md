@@ -98,7 +98,7 @@
 
 > The strategy does not need to be sophisticated. For example, you could use the mean/median
 > for  that day, or the mean for that 5-minute interval,etc    
-> Na replaced by mean in 5 min interval.    
+> Missing data -Na replaced by mean in 5 min interval.    
 
 
 ```r
@@ -114,7 +114,7 @@
       fillNA <- c(fillNA, steps)
 }
 ```
-> Create new dataset  with missing data filled with mean value.  
+> Missing Data -Create new dataset  with missing data filled with mean value.  
 
 
 
@@ -191,7 +191,7 @@
 
 
 ```r
-     xyplot(steps ~ interval | dayIndicator, dayPatterns, main="Average Steps per Day",type = "l", layout = c(2, 1), xlab = "Interval", ylab = "Number of steps" )
+     xyplot(steps ~ interval | dayIndicator,dayPatterns, main="Average Steps per Day",type = "l",  xlab = "Interval", ylab = "Number of steps",layout = c(1, 2) )
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 

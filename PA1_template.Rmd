@@ -79,7 +79,7 @@ output:
 
 > The strategy does not need to be sophisticated. For example, you could use the mean/median
 > for  that day, or the mean for that 5-minute interval,etc    
-> Na replaced by mean in 5 min interval.    
+> Missing data -Na replaced by mean in 5 min interval.    
 
 ``` {r echo= TRUE}
       AverageVal <- aggregate(steps ~ interval, data = activity, FUN = mean)
@@ -96,7 +96,7 @@ output:
       
 
 ```
-> Create new dataset  with missing data filled with mean value.  
+> Missing Data -Create new dataset  with missing data filled with mean value.  
 
 
 ```{r echo= TRUE}
@@ -161,6 +161,6 @@ output:
 
 ```{r echo= TRUE}
     
-     xyplot(steps ~ interval | dayIndicator, dayPatterns, main="Average Steps per Day",type = "l", layout = c(2, 1), xlab = "Interval", ylab = "Number of steps" )
+     xyplot(steps ~ interval | dayIndicator,dayPatterns, main="Average Steps per Day",type = "l",  xlab = "Interval", ylab = "Number of steps",layout = c(1, 2) )
 
 ``` 
