@@ -1,9 +1,4 @@
----
-title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
----
+# Reproducible Research: Peer Assessment 1
 
 
 ## Loading and preprocessing the data  
@@ -12,35 +7,49 @@ output:
 
 
 
-```{r echo = TRUE}
+
+```r
    activity <- read.csv("activity.csv", colClasses = c("numeric", "character", "numeric"))
-  
-````
+```
 
 > Use agrregate function to get the required data  
 > Create histogram   
 
 ## What is mean total number of steps taken per day?  
 
-```{r echo = TRUE}
-        
+
+```r
       library(lattice)
       activity$date <- as.Date(activity$date, "%Y-%m-%d")
-```   
+```
 
 > Create histogram    
 
-```{r echo= TRUE}
+
+```r
         StepsperDay <- aggregate(steps ~ date, data = activity, sum, na.rm = TRUE)
         hist(StepsperDay$steps, main = "Total steps per day", xlab = "day", col = "Blue")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png) 
 > Mean and the Median 
 
     
-    ```{r echo = TRUE}
+    
+    ```r
         mean(StepsperDay$steps)
+    ```
+    
+    ```
+    ## [1] 10766.19
+    ```
+    
+    ```r
         median(StepsperDay$steps)
-
+    ```
+    
+    ```
+    ## [1] 10765
     ```
 
 ## What is the average daily activity pattern?
@@ -48,31 +57,41 @@ output:
 > days (y-axis)  
 
 
-```{r echo = TRUE}
+
+```r
       activitypattern <- tapply(activity$steps, activity$interval, mean, na.rm = TRUE)
       plot(row.names(activitypattern), activitypattern, type = "l", xlab = "5-minute interval", 
       ylab = "Average across all Days", main = "Average of daily Acitvity Pattern", 
      col = "orange")
-
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
 
 >  Which 5-minute interval, on average across all the days in the dataset, contains the maximum >  number of steps?.      
 
-``` {r echo= TRUE}
+
+```r
       max_steps <- which.max(activitypattern)
       names(max_steps)
+```
 
-````
+```
+## [1] "835"
+```
 
 ## Imputing missing values.  
 
 > the total number of rows with NAs  
 
-    ``` {r echo= TRUE}
-
+    
+    ```r
         activity_NA <- sum(is.na(activity))
         activity_NA
+    ```
+    
+    ```
+    ## [1] 2304
     ```
     
 > Devise a strategy for filling in all of the missing values in the dataset.
@@ -81,7 +100,8 @@ output:
 > for  that day, or the mean for that 5-minute interval,etc    
 > Na replaced by mean in 5 min interval.    
 
-``` {r echo= TRUE}
+
+```r
       AverageVal <- aggregate(steps ~ interval, data = activity, FUN = mean)
       fillNA <- numeric()
         for (i in 1:nrow(activity)) {
@@ -93,36 +113,48 @@ output:
     }
       fillNA <- c(fillNA, steps)
 }
-      
-
 ```
 > Create new dataset  with missing data filled with mean value.  
 
 
-```{r echo= TRUE}
+
+```r
     new_data <- activity
     new_data$steps <- fillNA    
-
 ```
 > Calculate and report the mean and median total number of steps taken per day.  
 
-```{r echo= TRUE}
 
+```r
       RevisedStepsperDay<- aggregate(steps ~ date, data = new_data, sum, na.rm = TRUE)
 ```
 > New The Histogram  
 
-```{r echo= TRUE}
 
+```r
     hist(RevisedStepsperDay$steps, main = "Total steps per day", xlab = "day", col = "Blue")
 ```
+
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
 
 > Revised Mean and Median.  
 
 
-```{r echo= TRUE}
+
+```r
       mean(RevisedStepsperDay$steps)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
       median(RevisedStepsperDay$steps)
+```
+
+```
+## [1] 10766.19
 ```
 ## Are there differences in activity patterns between weekdays and weekend.  
 
@@ -130,8 +162,8 @@ output:
 
 
 
-```{r echo= TRUE}
 
+```r
     day <- weekdays(activity$date)
     dayIndicator <- vector()
     for (i in 1:nrow(activity)) {
@@ -148,8 +180,6 @@ output:
 
         dayPatterns <- aggregate(steps ~ interval + dayIndicator, data = activity, mean)
         names(dayPatterns) <- c("interval", "dayindicator", "steps")
-
-
 ```
 
 
@@ -159,8 +189,9 @@ output:
 
 
 
-```{r echo= TRUE}
-    
-     xyplot(steps ~ interval | dayIndicator, dayPatterns, main="Average Steps per Day",type = "l", layout = c(2, 1), xlab = "Interval", ylab = "Number of steps" )
 
-``` 
+```r
+     xyplot(steps ~ interval | dayIndicator, dayPatterns, main="Average Steps per Day",type = "l", layout = c(2, 1), xlab = "Interval", ylab = "Number of steps" )
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
